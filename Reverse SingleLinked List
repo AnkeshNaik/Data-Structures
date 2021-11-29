@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node
+{
+    int data;
+    struct node *next;
+}node;
+node *head=NULL;
+
+node *create(node *head,int item)
+{
+    node *new =(node *)malloc(sizeof(node));
+    new->data=item;
+    new->next=head;
+    head =new;
+    return head;
+}
+
+node *reverse(node *head)
+{
+    node *next =NULL;
+    node *prev=NULL;
+
+    while(head!=NULL)
+    {
+        next=head->next;
+        head->next=prev;
+        prev=head;
+        head=next;
+    }
+    head=prev;
+    return head;
+}
+
+void display(node *head)
+{
+    node *ptr=head;
+    if(head==NULL)
+    {
+        printf("list is empty");
+
+    }
+    printf("elements are :\n");
+    while(ptr!=NULL)
+    {
+        printf("%d\t",ptr->data);
+        ptr=ptr->next;
+    }
+}
+void main()
+{
+    int n,i,item;
+    printf("enter no of elements in list\n");
+    scanf("%d",&n);
+    printf("enter elements for list\n");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&item);
+        head =create(head,item);
+    }
+    printf("\nbefore reversing\n");
+    display(head);
+    head = reverse(head);
+    printf("\nafter reversing\n");
+    display(head);
+}
